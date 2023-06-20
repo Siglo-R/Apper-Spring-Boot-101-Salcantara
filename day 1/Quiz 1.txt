@@ -1,1 +1,10 @@
 //Quiz 1
+
+1.Java Enterprise Edition
+2.A boilerplate code refers to a code that is always repeated in a program. it serves as providing pre-written code that can be used in programs. (serves as annotations) 
+3.Spring
+4.Pivotal Software 
+5.https://start.spring.io/
+6.microservice or serverless that allows you to run without the need of a dedicated server made by the user.
+7-9.Dependency Injection means you can use, for example a certain method, to be used by other method as well. this allows loose coupling of components or methods where in one block of code can be used by other block of codes as well in the form of annotations.
+10.mvn spring-boot:run
