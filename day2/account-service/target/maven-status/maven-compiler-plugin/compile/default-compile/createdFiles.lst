@@ -1,7 +1,10 @@
+com\apper\updateAccountRequest.class
 com\apper\Account.class
 com\apper\AccountController.class
 com\apper\GCashAccountServiceApplication.class
 com\apper\AccountService.class
+com\apper\updateAccountResponse.class
 com\apper\GetAccountResponse.class
 com\apper\CreateAccountResponse.class
 com\apper\CreateAccountRequest.class
+com\apper\IDGeneratorService.class

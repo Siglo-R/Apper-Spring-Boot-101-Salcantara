@@ -59,4 +59,22 @@ public class AccountController {
         return responseList;
     }
 
+    @PutMapping("{accountId}")
+    @ResponseStatus(HttpStatus.OK)
+    public updateAccountResponse updateAccount(@PathVariable String accountId, @RequestBody updateAccountRequest request) {
+        Account account= accountService.update(accountId, request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword());
+
+        updateAccountResponse response = new updateAccountResponse();
+        response.setLastUpdated(account.getLastUpdated());
+
+        return response;
+    }
+
+    @DeleteMapping("{accountId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAccount(@PathVariable String accountId){
+        accountService.deleteAccount(accountId);
+
+
+    }
 }
