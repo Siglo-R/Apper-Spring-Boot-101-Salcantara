@@ -63,8 +63,8 @@ public class AccountService {
        }
 //
 
-public void deleteAccount(String AccountId) {
-            accounts.remove(get(AccountId));
+public void deleteAccount(String accountId) {
+            accounts.remove(get(accountId));
 
 }
 
