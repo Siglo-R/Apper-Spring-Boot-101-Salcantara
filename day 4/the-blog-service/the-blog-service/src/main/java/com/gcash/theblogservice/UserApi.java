@@ -1,48 +1,50 @@
 package com.gcash.theblogservice;
 
 
+import com.gcash.theblogservice.model.Blog;
 import com.gcash.theblogservice.model.UserBlogger;
-import com.gcash.theblogservice.payload.CreateUserRequest;
-import com.gcash.theblogservice.payload.CreateUserResponse;
-import com.gcash.theblogservice.payload.UserDetails;
-import com.gcash.theblogservice.service.UserService;
+import com.gcash.theblogservice.payload.*;
+import com.gcash.theblogservice.service.CreateBlogService;
+import com.gcash.theblogservice.service.CreateUserService;
 import jakarta.validation.Valid;
-import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
+import java.util.List;
 
 @RestController
 @RequestMapping("blogger")
 public class UserApi {
 
-    private final UserService userService;
+    private final CreateUserService createUserService;
 
-    public UserApi(UserService userService){
-        this.userService=userService;
+    private final CreateBlogService createBlogService;
+
+    public UserApi(CreateUserService createUserService, CreateBlogService createBlogService){
+        this.createUserService = createUserService;
+        this.createBlogService = createBlogService;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CreateUserResponse createUser(@RequestBody @Valid CreateUserRequest request) {
 
-        UserBlogger createdUser = userService.createUser(request.getEmail(), request.getName(), request.getPassword());
+        UserBlogger createdUser = createUserService.createUser(request.getEmail(), request.getName(), request.getPassword());
 
         System.out.println(request);
         CreateUserResponse response = new CreateUserResponse();
-        response.setId("dummy_id");
+        response.setId(createdUser.getId());
         response.setDateRegistration(LocalDateTime.now());
         return response;
 
     }
 
     @GetMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
     public UserDetails getUserBlogger(@PathVariable String id) {
-        UserBlogger userBlogger = userService.getUserBlogger(id);
+        UserBlogger userBlogger = createUserService.getUserBlogger(id);
 
         UserDetails userDetails = new UserDetails();
         userDetails.setId(userBlogger.getId());
@@ -52,6 +54,14 @@ public class UserApi {
 
         return userDetails;
     }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserBlogger> getAllUserBlogger(){
+        return createUserService.getAllUserBlogger();
+    }
+
+
 
 
 
