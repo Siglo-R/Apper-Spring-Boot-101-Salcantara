@@ -1,11 +1,10 @@
 package com.gcash.theblogservice;
 
 
+import com.gcash.theblogservice.ExceptionHandler.UserBloggerIdNotFoundException;
 import com.gcash.theblogservice.model.Blog;
-import com.gcash.theblogservice.model.UserBlogger;
 import com.gcash.theblogservice.payload.*;
 import com.gcash.theblogservice.service.CreateBlogService;
-import com.gcash.theblogservice.service.CreateUserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,18 +17,16 @@ import java.util.List;
 @RequestMapping("blog")
 public class BlogApi {
 
-    private final CreateUserService createUserService;
 
     private final CreateBlogService createBlogService;
 
-    public BlogApi(CreateUserService createUserService, CreateBlogService createBlogService){
-        this.createUserService = createUserService;
+    public BlogApi( CreateBlogService createBlogService){
         this.createBlogService = createBlogService;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CreateBlogResponse createBlog(@RequestBody @Valid CreateBlogRequest request) {
+    public CreateBlogResponse createBlog(@RequestBody @Valid CreateBlogRequest request) throws UserBloggerIdNotFoundException {
 
         Blog createdBlog = createBlogService.createBlog(request.getUserId(), request.getTitle(),request.getBody() );
 
@@ -59,7 +56,7 @@ public class BlogApi {
 
     @PutMapping("{blogId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public UpdateBlogResponse updateBlog(@PathVariable String blogId, @RequestBody @Valid UpdateBlogRequest request) {
+    public UpdateBlogResponse updateBlog(@PathVariable String blogId, @RequestBody @Valid UpdateBlogRequest request)  {
 
         Blog updatedBlog = createBlogService.updateBlog(blogId, request.getTitle(),request.getBody());
 

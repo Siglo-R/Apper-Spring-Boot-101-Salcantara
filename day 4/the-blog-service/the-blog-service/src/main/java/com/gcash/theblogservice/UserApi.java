@@ -1,10 +1,10 @@
 package com.gcash.theblogservice;
 
 
-import com.gcash.theblogservice.model.Blog;
+import com.gcash.theblogservice.ExceptionHandler.EmailAlreadyRegisteredException;
+import com.gcash.theblogservice.ExceptionHandler.UserBloggerIdNotFoundException;
 import com.gcash.theblogservice.model.UserBlogger;
 import com.gcash.theblogservice.payload.*;
-import com.gcash.theblogservice.service.CreateBlogService;
 import com.gcash.theblogservice.service.CreateUserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -20,16 +20,15 @@ public class UserApi {
 
     private final CreateUserService createUserService;
 
-    private final CreateBlogService createBlogService;
 
-    public UserApi(CreateUserService createUserService, CreateBlogService createBlogService){
+
+    public UserApi(CreateUserService createUserService){
         this.createUserService = createUserService;
-        this.createBlogService = createBlogService;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CreateUserResponse createUser(@RequestBody @Valid CreateUserRequest request) {
+    public CreateUserResponse createUser(@RequestBody @Valid CreateUserRequest request) throws EmailAlreadyRegisteredException {
 
         UserBlogger createdUser = createUserService.createUser(request.getEmail(), request.getName(), request.getPassword());
 
@@ -43,9 +42,8 @@ public class UserApi {
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDetails getUserBlogger(@PathVariable String id) {
+    public UserDetails getUserBlogger(@PathVariable String id) throws UserBloggerIdNotFoundException {
         UserBlogger userBlogger = createUserService.getUserBlogger(id);
-
         UserDetails userDetails = new UserDetails();
         userDetails.setId(userBlogger.getId());
         userDetails.setName(userBlogger.getName());

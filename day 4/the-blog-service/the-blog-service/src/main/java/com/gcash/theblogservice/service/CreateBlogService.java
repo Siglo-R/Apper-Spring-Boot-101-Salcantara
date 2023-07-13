@@ -1,5 +1,6 @@
 package com.gcash.theblogservice.service;
 
+import com.gcash.theblogservice.ExceptionHandler.UserBloggerIdNotFoundException;
 import com.gcash.theblogservice.Repository.BlogRepository;
 import com.gcash.theblogservice.Repository.UserRepository;
 import com.gcash.theblogservice.model.Blog;
@@ -25,7 +26,7 @@ public class CreateBlogService {
     }
 
 
-    public Blog createBlog( String userId, String title, String body){
+    public Blog createBlog( String userId, String title, String body) throws UserBloggerIdNotFoundException {
         Blog blog= new Blog();
         blog.setBlogger(createUserService.getUserBlogger(userId));
         blog.setTitle(title);
@@ -55,6 +56,7 @@ public class CreateBlogService {
     public List<Blog> getAllBlogsByBlogger(String bloggerId){
         return blogRepository.findAllByBlogger_Id( bloggerId);
     }
+
 
 
 

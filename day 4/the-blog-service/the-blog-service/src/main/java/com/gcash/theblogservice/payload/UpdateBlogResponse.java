@@ -7,7 +7,10 @@ import java.time.LocalDateTime;
 
 @Data
 public class UpdateBlogResponse {
+
+    @JsonProperty("id")
     private String userId;
+    @JsonProperty("blogger_id")
     private String blogId;
     @JsonProperty("created_at")
     private LocalDateTime blogCreation;

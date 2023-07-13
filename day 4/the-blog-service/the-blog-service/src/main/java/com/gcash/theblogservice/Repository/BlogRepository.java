@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface BlogRepository extends CrudRepository<Blog, String> {
     List<Blog> findAllByBlogger_Id( String Blogger_Id );
 
+
+
 }
