@@ -1,5 +1,5 @@
 # The Blog Service
-
+#Local Host is mapped at port 8082
 ## Register Blogger
 
 POST /blogger
