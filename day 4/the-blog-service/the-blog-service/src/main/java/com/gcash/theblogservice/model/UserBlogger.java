@@ -1,6 +1,7 @@
 package com.gcash.theblogservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,11 +20,14 @@ public class UserBlogger {
     @Column(name = "COMPLETE_NAME")
     private String name;
     @Column(name = "PASSWORD")
+    @JsonIgnore
     private String password;
     @Column(name= "EMAIL")
     private String email;
     @Column(name="CREATED_AT")
+    @JsonProperty("date_registration")
     private LocalDateTime createdAt;
+    @JsonIgnore
     @Column(name = "LAST_UPDATE")
     private LocalDateTime lastUpdate;
 
