@@ -2,9 +2,7 @@ package com.gcash.theblogservice.service;
 
 import com.gcash.theblogservice.ExceptionHandler.UserBloggerIdNotFoundException;
 import com.gcash.theblogservice.Repository.BlogRepository;
-import com.gcash.theblogservice.Repository.UserRepository;
 import com.gcash.theblogservice.model.Blog;
-import com.gcash.theblogservice.model.UserBlogger;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,14 +10,12 @@ import java.util.Optional;
 
 @Service
 public class CreateBlogService {
-    private final UserRepository userRepository;
 
     private final CreateUserService createUserService;
 
     private final BlogRepository blogRepository;
 
-    public CreateBlogService(UserRepository userRepository, CreateUserService createUserService, BlogRepository blogRepository) {
-        this.userRepository = userRepository;
+    public CreateBlogService(CreateUserService createUserService, BlogRepository blogRepository) {
         this.createUserService = createUserService;
         this.blogRepository=blogRepository;
 

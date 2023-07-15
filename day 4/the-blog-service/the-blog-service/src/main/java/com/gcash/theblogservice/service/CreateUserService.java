@@ -16,7 +16,7 @@ public class CreateUserService {
         this.userRepository = userRepository;
     }
     public UserBlogger createUser(String email, String name, String password) throws EmailAlreadyRegisteredException {
-        if(userRepository.existsByEmail(email)==true){
+        if(userRepository.existsByEmail(email)){
             throw new EmailAlreadyRegisteredException("Email Already Registered");
         }
         UserBlogger userBlogger= new UserBlogger();
@@ -27,7 +27,7 @@ public class CreateUserService {
         return userRepository.save(userBlogger);
     }
     public UserBlogger getUserBlogger(String id) throws UserBloggerIdNotFoundException {
-        if(userRepository.existsById(id)==false){
+        if(!userRepository.existsById(id)){
             throw new UserBloggerIdNotFoundException("ID not found");
         }
         Optional<UserBlogger> userBloggerResult = userRepository.findById(id);

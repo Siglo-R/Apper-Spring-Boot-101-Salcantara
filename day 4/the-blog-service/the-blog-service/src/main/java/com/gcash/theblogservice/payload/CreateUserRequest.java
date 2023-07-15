@@ -1,12 +1,9 @@
 package com.gcash.theblogservice.payload;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
-import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 
 @Data
 public class CreateUserRequest {
@@ -21,7 +18,6 @@ public class CreateUserRequest {
     @JsonProperty("name")
     @NotBlank(message= "name is Required")
     private String Name;
-
 
 
 
