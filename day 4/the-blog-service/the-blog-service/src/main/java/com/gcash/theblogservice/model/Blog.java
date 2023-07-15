@@ -16,7 +16,6 @@ public class Blog {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name="BLOG_ID")
     @JsonProperty("blog_id")
-    @JsonIgnore
     private String blogId;
 
     @ManyToOne
