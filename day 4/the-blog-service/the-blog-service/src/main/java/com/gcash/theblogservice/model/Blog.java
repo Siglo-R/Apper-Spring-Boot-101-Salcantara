@@ -1,6 +1,7 @@
 package com.gcash.theblogservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,6 +15,8 @@ public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name="BLOG_ID")
+    @JsonProperty("blog_id")
+    @JsonIgnore
     private String blogId;
 
     @ManyToOne
@@ -22,6 +25,7 @@ public class Blog {
     private UserBlogger blogger;
 
     @Column(name="CREATED_AT")
+    @JsonProperty("created_at")
     private LocalDateTime createdAt;
 
     @Column(name="TITLE")
@@ -31,6 +35,7 @@ public class Blog {
     private String body;
 
     @Column(name = "LAST_UPDATE")
+    @JsonProperty("last_updated")
     private LocalDateTime lastUpdate;
 
 
@@ -43,5 +48,10 @@ public class Blog {
     @PreUpdate
     public void setLastUpdate() {
         lastUpdate = LocalDateTime.now();
+    }
+
+    @JsonProperty("blogger_id")
+    public String getBloggerId() {
+        return blogger != null ? blogger.getId() : null;
     }
 }

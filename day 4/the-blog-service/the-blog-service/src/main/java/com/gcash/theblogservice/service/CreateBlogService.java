@@ -3,8 +3,11 @@ package com.gcash.theblogservice.service;
 import com.gcash.theblogservice.ExceptionHandler.UserBloggerIdNotFoundException;
 import com.gcash.theblogservice.Repository.BlogRepository;
 import com.gcash.theblogservice.model.Blog;
+import com.gcash.theblogservice.payload.GetBloggerDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.BeanUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,8 +52,15 @@ public class CreateBlogService {
     public List<Blog> getAllBlogs(){
         return (List<Blog>) blogRepository.findAll();
     }
-    public List<Blog> getAllBlogsByBlogger(String bloggerId){
-        return blogRepository.findAllByBlogger_Id( bloggerId);
+    public List<GetBloggerDetails> getAllBlogsByBlogger(String bloggerId){
+        List<Blog> blogs = blogRepository.findAllByBlogger_Id(bloggerId);
+        List<GetBloggerDetails> blogResponses = new ArrayList<>();
+        for (Blog blog : blogs) {
+            GetBloggerDetails blogResponse = new GetBloggerDetails();
+            BeanUtils.copyProperties(blog, blogResponse);
+            blogResponses.add(blogResponse);
+        }
+        return blogResponses;
     }
 
 

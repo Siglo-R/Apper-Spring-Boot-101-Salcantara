@@ -1,4 +1,5 @@
 package com.gcash.theblogservice.payload;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -12,7 +13,8 @@ public class CreateBlogRequest {
     private String body;
 
 
-    @NotBlank(message = "userID is required")
+    @JsonProperty("blogger_id")
+    @NotBlank(message = "blogger_id is required")
     private String userId;
 
 

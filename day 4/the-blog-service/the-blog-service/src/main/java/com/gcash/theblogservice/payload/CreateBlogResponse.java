@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class CreateBlogResponse {
-    @JsonProperty("id")
+    @JsonProperty("blogger_id")
     private String userId;
     @JsonProperty("blog_id")
     private String blogId;

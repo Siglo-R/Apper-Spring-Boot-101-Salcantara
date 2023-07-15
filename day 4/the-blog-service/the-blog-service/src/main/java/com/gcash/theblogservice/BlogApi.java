@@ -78,7 +78,7 @@ public class BlogApi {
 
     @GetMapping("/blogger/{blogId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Blog> getAllBlogsByBlogger(@PathVariable String blogId){
+    public List<GetBloggerDetails> getAllBlogsByBlogger(@PathVariable String blogId){
         return createBlogService.getAllBlogsByBlogger(blogId);
     }
 
